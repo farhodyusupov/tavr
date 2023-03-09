@@ -14,23 +14,37 @@ class MoreInfoScreen extends StatefulWidget {
 }
 
 class _MoreInfoScreenState extends State<MoreInfoScreen> {
+
   late DummyData dummy;
+  bool isMobile = false;
+  bool isWindows = false;
+  bool isWeb = false;
+
 
   @override
   void initState() {
+    if(Platform.isAndroid||Platform.isIOS){
+      isMobile = true;
+    }else if(Platform.isWindows){
+      isWindows = true;
+    }else {
+      isWeb = true;
+    }
     dummy = dummyList.firstWhere((element) => element.id == widget.patientId);
     // TODO: implement initState
     super.initState();
   }
 
+
+
   @override
   Widget build(BuildContext context) {
-    if(Platform.isAndroid){
+    if(isMobile){
       return Scaffold(
         body: Column(
           mainAxisAlignment: MainAxisAlignment.spaceAround,
           children: [
-            const Text("detailed info of patent on Android"),
+            const Text("detailed info of patent on Mobile"),
 
             Text("id: ${dummy.id}   gender  ${dummy.sex}   age   ${dummy.age}"),
             Row(
@@ -55,7 +69,7 @@ class _MoreInfoScreenState extends State<MoreInfoScreen> {
                     showDialog(
                         context: (context),
                         builder: (BuildContext context) {
-                          return AlertDialog(
+                          return const AlertDialog(
                             content: Text("result of PPI"),
                           );
                         });
@@ -105,7 +119,7 @@ class _MoreInfoScreenState extends State<MoreInfoScreen> {
                     showDialog(
                         context: (context),
                         builder: (BuildContext context) {
-                          return AlertDialog(
+                          return const AlertDialog(
                             content: Text("result of PPI"),
                           );
                         });
@@ -125,7 +139,7 @@ class _MoreInfoScreenState extends State<MoreInfoScreen> {
           ],
         ),
       );
-    }else if(kIsWeb){
+    }else if(isWeb){
       return Scaffold(
         body: Column(
           mainAxisAlignment: MainAxisAlignment.spaceAround,
@@ -155,7 +169,7 @@ class _MoreInfoScreenState extends State<MoreInfoScreen> {
                     showDialog(
                         context: (context),
                         builder: (BuildContext context) {
-                          return AlertDialog(
+                          return const AlertDialog(
                             content: Text("result of PPI"),
                           );
                         });
@@ -176,8 +190,8 @@ class _MoreInfoScreenState extends State<MoreInfoScreen> {
         ),
       );
     }else{
-      return Scaffold(
-        body: Container(child:Text("other platforms")),
+      return const Scaffold(
+        body:  Text("other platforms"),
       );
     }
 

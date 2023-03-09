@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:tavr/widget/platform_scaffold.dart';
 
 import 'screens/home_screen.dart';
 
@@ -16,10 +17,10 @@ class MyApp extends StatelessWidget {
       title: 'TAVR',
       debugShowCheckedModeBanner: false,
       theme: ThemeData(
-
-        primarySwatch: Colors.blue,
+        colorScheme: ColorScheme.fromSwatch(primarySwatch: Colors.blue).copyWith(background: Colors.white),
+        scaffoldBackgroundColor: Colors.white
       ),
-      home: const HomePage(),
+      home: PlatformScaffold(body: const HomePage()),
     );
   }
 }
