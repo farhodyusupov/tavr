@@ -3,11 +3,12 @@ import 'dart:io';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:tavr/data/dummy_data.dart';
+import 'package:tavr/models/patient_info.dart';
 
 class MoreInfoScreen extends StatefulWidget {
-  final int patientId;
+  Result  patient;
 
-  const MoreInfoScreen({Key? key, required this.patientId}) : super(key: key);
+  MoreInfoScreen({Key? key, required this.patient}) : super(key: key);
 
   @override
   State<MoreInfoScreen> createState() => _MoreInfoScreenState();
@@ -15,7 +16,6 @@ class MoreInfoScreen extends StatefulWidget {
 
 class _MoreInfoScreenState extends State<MoreInfoScreen> {
 
-  late DummyData dummy;
   bool isMobile = false;
   bool isWindows = false;
   bool isWeb = false;
@@ -30,8 +30,7 @@ class _MoreInfoScreenState extends State<MoreInfoScreen> {
     }else {
       isWeb = true;
     }
-    dummy = dummyList.firstWhere((element) => element.id == widget.patientId);
-    // TODO: implement initState
+
     super.initState();
   }
 
@@ -46,7 +45,7 @@ class _MoreInfoScreenState extends State<MoreInfoScreen> {
           children: [
             const Text("detailed info of patent on Mobile"),
 
-            Text("id: ${dummy.id}   gender  ${dummy.sex}   age   ${dummy.age}"),
+            Text("id: ${widget.patient.mrn }   gender  ${widget.patient.sex}   age   ${widget.patient.age.truncate()}"),
             Row(
               mainAxisAlignment: MainAxisAlignment.spaceAround,
               children: [
@@ -96,7 +95,7 @@ class _MoreInfoScreenState extends State<MoreInfoScreen> {
           children: [
             const Text("detailed info of patent on other Windows"),
 
-            Text("id: ${dummy.id}   gender  ${dummy.sex}   age   ${dummy.age}"),
+            Text("id: ${widget.patient.mrn}   gender  ${widget.patient.sex}   age   ${widget.patient.age.truncate()}"),
             Row(
               mainAxisAlignment: MainAxisAlignment.spaceAround,
               children: [
@@ -146,7 +145,7 @@ class _MoreInfoScreenState extends State<MoreInfoScreen> {
           children: [
             const Text("detailed info of patent other platforms"),
 
-            Text("id: ${dummy.id}   gender  ${dummy.sex}   age   ${dummy.age}"),
+            Text("id: ${widget.patient.mrn}   gender  ${widget.patient.sex}   age   ${widget.patient.age.truncate()}"),
             Row(
               mainAxisAlignment: MainAxisAlignment.spaceAround,
               children: [
