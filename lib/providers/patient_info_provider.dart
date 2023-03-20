@@ -1,7 +1,7 @@
 import 'package:dio/dio.dart';
 
-import "../models/patient_info.dart";
-
+import "../models/patient_List.dart";
+import '../models/patient_info.dart';
 import 'package:flutter/material.dart';
 import '../service/http_service.dart';
 
@@ -11,22 +11,40 @@ class PatientInfoProvider extends ChangeNotifier {
   List<Result> _patients = [];
   List<Result> get patients => _patients;
 
-  Future<List<Result>?> getPatientInfo(String? data)async{
-    Response? response = await networkProvider.networkRequest(method: "get", path: "/list");
-   print("response data:: ${response?.data.toString()}");
-    if(response?.statusCode==200) {
-      PatientInfo patientInfo = PatientInfo.fromJson(response?.data);
+  Patient _patient = Patient();
+  Patient get patient => _patient;
+
+  Future<List<Result>?> getPatientList()async{
+    Response response = await networkProvider.networkRequest(method: "get", path: "/list");
+    if(response.statusCode==200) {
+      PatientList patientInfo = PatientList.fromJson(response.data);
     setPatientInfo(patientInfo.result);
     return patientInfo.result;
     }
+    return null;
   }
 
   void setPatientInfo(List<Result> patientList){
         _patients = patientList;
-
         notifyListeners();
   }
 
+  Future<Patient?>? getPatient()async{
+    print("patient is getting fetch");
+    Response response = await networkProvider.networkRequest(method: "post", path: "/inform" );
+    print("request code:: ${response.statusCode}");
+    if(response.statusCode == 200){
+      print("patient fetch is done");
+      Patient patient = Patient.fromJson(response.data);
+      print("patient info::${patient.mrn}");
+      return patient;
+    }
+
+  }
+  void setPatient(Patient patientInfo){
+    _patient = patientInfo;
+    notifyListeners();
+  }
   /*
   Future<OrderInfo?> selectOrderList(int page, Map<String, dynamic> data) async{
     Response response = await _networkComponent.shared.request('get', '/order', data);
