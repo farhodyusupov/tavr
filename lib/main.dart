@@ -1,10 +1,18 @@
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
+import 'package:tavr/providers/patient_info_provider.dart';
 import 'package:tavr/widget/platform_scaffold.dart';
-
 import 'screens/home_screen.dart';
 
 void main() {
-  runApp(const MyApp());
+  runApp(MultiProvider(
+    providers: [
+      ChangeNotifierProvider<PatientInfoProvider>(
+        create: (_) => PatientInfoProvider(),
+      ),
+    ],
+    child: MyApp(),
+  ));
 }
 
 class MyApp extends StatelessWidget {
@@ -17,10 +25,10 @@ class MyApp extends StatelessWidget {
       title: 'TAVR',
       debugShowCheckedModeBanner: false,
       theme: ThemeData(
-        colorScheme: ColorScheme.fromSwatch(primarySwatch: Colors.blue).copyWith(background: Colors.white),
-        scaffoldBackgroundColor: Colors.white
-      ),
-      home: PlatformScaffold(body: const HomePage()),
+          colorScheme: ColorScheme.fromSwatch(primarySwatch: Colors.blue)
+              .copyWith(background: Colors.white),
+          scaffoldBackgroundColor: Colors.white),
+      home: HomePage(),
     );
   }
 }
