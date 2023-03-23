@@ -15,8 +15,11 @@ class HomePage extends StatefulWidget {
 }
 
 class _HomePageState extends State<HomePage> with AfterLayoutMixin<HomePage> {
-  List<Result>? patientInfoList;
+  late List<Result> patientInfoList;
+  List<Result> searchlist = [];
   PatientInfoProvider? patientInfoProvider;
+
+  TextEditingController searchController = TextEditingController();
 
   @override
   Widget build(BuildContext context) {
@@ -32,145 +35,245 @@ class _HomePageState extends State<HomePage> with AfterLayoutMixin<HomePage> {
               color: Constants.iconColor,
               height: AppBar().preferredSize.height,
             ),
-            const SizedBox(width: 50,),
-           const  Text("TAVR", style: TextStyle(color: Colors.black, fontSize: 25),)
+            const SizedBox(
+              width: 50,
+            ),
+            const Text(
+              "TAVR",
+              style: TextStyle(color: Colors.black, fontSize: 25),
+            )
           ],
         ),
       ),
       body: Consumer<PatientInfoProvider>(
         builder: (context, value, child) {
-          print(value.patients);
           patientInfoList = value.patients;
           if (patientInfoList!.isEmpty) {
             return const Center(
-              child: Text("there is no data"),
+              child: CircularProgressIndicator(),
             );
           }
           return Container(
-            alignment: Alignment.center,
-            child: Row(
-              children: [
-                Container(
-                  padding: EdgeInsets.all(50),
-                  color: Color.fromRGBO(182, 204, 254, 1),
-                  width: 300,
-                  child: Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [
-                     const  Text("Doctor(or Manager)", style: TextStyle(fontSize: 20),),
-                      const SizedBox(height: 15,),
-                      Divider(height: 4,color: Colors.black,),
-                      const SizedBox(height: 15,),
-                      Text("Content", style: TextStyle(fontSize: 17, color: Colors.black),),
-                      const SizedBox(height: 15,),
-                      Text("Content", style: TextStyle(fontSize: 17, color: Colors.black),),
-                      const SizedBox(height: 15,),
-                      Text("Content", style: TextStyle(fontSize: 17, color: Colors.black),),
-                    ],
-                  ),
-                ),
-                Container(
-                  color: Color.fromRGBO(215,227, 252, 1),
-                  width: MediaQuery.of(context).size.width-300,
-                  height: MediaQuery.of(context).size.height-AppBar().preferredSize.height,
-                  child: ListView.builder(
-                    scrollDirection: Axis.vertical,
-                    itemCount: patientInfoList!.length,
-                    itemBuilder: (context, index) {
-                      return Container(
-                        margin: const EdgeInsets.symmetric(horizontal: 40),
-                        alignment: Alignment.center,
-                        height: 70,
-                        decoration: BoxDecoration(
-                            color: index % 2 == 0
-                                ? Constants.lineColor1
-                                : Constants.lineColor2),
-                        child: index == 0
-                            ? Column(
-                          children: [
-                            Container(
-                              width: MediaQuery.of(context).size.width,
-                              color: Colors.white,
-                              child: Row(
-                                children: const [
-                                  SizedBox(
-                                    width: 40,
-                                    child: Text(
-                                      "Id",
-                                      style: TextStyle(),
-                                    ),
-                                  ),
-                                  SizedBox(
-                                    width: 100,
-                                    child: Text("Gender"),
-                                  ),
-                                  SizedBox(
-                                    width: 100,
-                                    child: Text("Age"),
-                                  ),
-                                  SizedBox(
-                                    width: 100,
-                                  )
-                                ],
-                              ),
-                            ),
-                            Row(
-                              children: [
-                                SizedBox(
-                                  width: 40,
-                                  child: Text(
-                                      patientInfoList![index].mrn ),
-                                ),
-                                SizedBox(
-                                  width: 100,
-                                  child: Text(
-                                      patientInfoList![index].sex == 1
-                                          ? "Male"
-                                          : "Female"),
-                                ),
-                                SizedBox(
-                                  width: 100,
-                                  child: Text(patientInfoList![index].age
-                                      .truncate()
-                                      .toString()
-                                  ),
-                                ),
-                                detailedInfoButton(
-                                    patientInfoList![index] as Result)
-                              ],
-                            ),
-                          ],
-                        )
-                            : Row(
-                          children: [
-                            SizedBox(
-                              width: 40,
-                              child:
-                              Text(patientInfoList![index].mrn ),
-                            ),
-                            SizedBox(
-                              width: 100,
-                              child: Text(patientInfoList![index].sex == 1
-                                  ? "Male"
-                                  : "Female"),
-                            ),
-                            SizedBox(
-                              width: 100,
-                              child: Text(patientInfoList![index].age
-                                  .truncate()
-                                  .toString()),
-                            ),
-                            detailedInfoButton(
-                                patientInfoList![index] as Result)
-                          ],
+              alignment: Alignment.center,
+              child: Row(
+                children: [
+                  Container(
+                    padding: EdgeInsets.all(50),
+                    color: Color.fromRGBO(182, 204, 254, 1),
+                    width: 300,
+                    child: Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        const Text(
+                          "Doctor(or Manager)",
+                          style: TextStyle(fontSize: 20),
                         ),
-                      );
-                    },
+                        const SizedBox(
+                          height: 15,
+                        ),
+                        Divider(
+                          height: 4,
+                          color: Colors.black,
+                        ),
+                        const SizedBox(
+                          height: 15,
+                        ),
+                        Text(
+                          "Content",
+                          style: TextStyle(fontSize: 17, color: Colors.black),
+                        ),
+                        const SizedBox(
+                          height: 15,
+                        ),
+                        Text(
+                          "Content",
+                          style: TextStyle(fontSize: 17, color: Colors.black),
+                        ),
+                        const SizedBox(
+                          height: 15,
+                        ),
+                        Text(
+                          "Content",
+                          style: TextStyle(fontSize: 17, color: Colors.black),
+                        ),
+                      ],
+                    ),
                   ),
-                ),
-              ],
-            )
-          );
+                  Container(
+                    width: MediaQuery.of(context).size.width - 300,
+                    child: Column(
+                      children: [
+                        Container(
+                          padding: EdgeInsets.only(top: 30),
+
+                          child: Row(
+                            mainAxisAlignment: MainAxisAlignment.spaceAround,
+                            children: [
+                              Text("Patient list"),
+                              Container(
+                                width: 150,
+                                height: 30,
+                                child: TextField(
+                                  decoration: InputDecoration(
+
+                                    focusedBorder: OutlineInputBorder(borderRadius: BorderRadius.circular(10),borderSide: BorderSide(color: Colors.black12)),
+                                    border: OutlineInputBorder(borderRadius: BorderRadius.circular(10),borderSide: BorderSide(color: Colors.black12)),
+                                  ),
+                                  controller: searchController,
+                                ),
+                              ),
+                              GestureDetector(
+                                onTap: () {
+                                  searchlist.clear();
+                                  print(
+                                      "gesture working::${searchController.text}");
+                                  setState(() {
+                                    searchlist.addAll(patientInfoList.where(
+                                        (element) =>
+                                            element.mrn ==
+                                            searchController.text));
+                                  });
+                                  print(searchlist[0].mrn);
+                                },
+                                child: Container(
+                                  alignment: Alignment.center,
+                                  height: 30,
+                                  width: 100,
+                                  decoration: BoxDecoration(
+                                      borderRadius: BorderRadius.circular(10),
+                                      color: Constants.mainColorLight),
+                                  child: Text("Search"),
+                                ),
+                              ),
+                            ],
+                          ),
+                        ),
+                        const SizedBox(height: 20,),
+                        Expanded(
+                          child: ListView.builder(
+                            scrollDirection: Axis.vertical,
+                            itemCount: searchlist.isEmpty
+                                ? patientInfoList.length
+                                : searchlist.length,
+                            itemBuilder: (context, index) {
+                              return searchlist.isEmpty
+                                  ? Container(
+                                      margin: const EdgeInsets.symmetric(
+                                          horizontal: 40),
+                                      alignment: Alignment.center,
+                                      height: 70,
+                                      decoration: BoxDecoration(
+                                          color: index % 2 == 0
+                                              ? Constants.lineColor1
+                                              : Constants.lineColor2),
+                                      child: index == 0
+                                          ? Column(
+                                              children: [
+                                                Container(
+                                                  width: MediaQuery.of(context)
+                                                      .size
+                                                      .width,
+                                                  color: Colors.white,
+                                                  child: Row(
+                                                    children: const [
+                                                      SizedBox(
+                                                        width: 40,
+                                                        child: Text(
+                                                          "Id",
+                                                          style: TextStyle(),
+                                                        ),
+                                                      ),
+                                                      SizedBox(
+                                                        width: 100,
+                                                        child: Text("Gender"),
+                                                      ),
+                                                      SizedBox(
+                                                        width: 100,
+                                                        child: Text("Age"),
+                                                      ),
+                                                      SizedBox(
+                                                        width: 100,
+                                                      )
+                                                    ],
+                                                  ),
+                                                ),
+                                                Row(
+                                                  children: [
+                                                    SizedBox(
+                                                      width: 40,
+                                                      child: Text(
+                                                          patientInfoList![
+                                                                  index]
+                                                              .mrn),
+                                                    ),
+                                                    SizedBox(
+                                                      width: 100,
+                                                      child: Text(
+                                                          patientInfoList![
+                                                                          index]
+                                                                      .sex ==
+                                                                  1
+                                                              ? "Male"
+                                                              : "Female"),
+                                                    ),
+                                                    SizedBox(
+                                                      width: 100,
+                                                      child: Text(
+                                                          patientInfoList![
+                                                                  index]
+                                                              .age
+                                                              .truncate()
+                                                              .toString()),
+                                                    ),
+                                                    detailedInfoButton(
+                                                        patientInfoList![index]
+                                                            as Result)
+                                                  ],
+                                                ),
+                                              ],
+                                            )
+                                          : Row(
+                                              children: [
+                                                SizedBox(
+                                                  width: 40,
+                                                  child: Text(
+                                                      patientInfoList![index]
+                                                          .mrn),
+                                                ),
+                                                SizedBox(
+                                                  width: 100,
+                                                  child: Text(
+                                                      patientInfoList![index]
+                                                                  .sex ==
+                                                              1
+                                                          ? "Male"
+                                                          : "Female"),
+                                                ),
+                                                SizedBox(
+                                                  width: 100,
+                                                  child: Text(
+                                                      patientInfoList![index]
+                                                          .age
+                                                          .truncate()
+                                                          .toString()),
+                                                ),
+                                                detailedInfoButton(
+                                                    patientInfoList![index]
+                                                        as Result)
+                                              ],
+                                            ),
+                                    )
+                                  : Container(
+                                      child: Text(searchlist[0].mrn),
+                                    );
+                            },
+                          ),
+                        ),
+                      ],
+                    ),
+                  ),
+                ],
+              ));
         },
       ),
     );
