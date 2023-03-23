@@ -23,6 +23,20 @@ class _HomePageState extends State<HomePage> with AfterLayoutMixin<HomePage> {
     patientInfoProvider = Provider.of<PatientInfoProvider>(context);
 
     return Scaffold(
+      appBar: AppBar(
+        backgroundColor: Color.fromRGBO(204, 219, 253, 1),
+        title: Row(
+          children: [
+            Container(
+              width: 120,
+              color: Constants.iconColor,
+              height: AppBar().preferredSize.height,
+            ),
+            const SizedBox(width: 50,),
+           const  Text("TAVR", style: TextStyle(color: Colors.black, fontSize: 25),)
+          ],
+        ),
+      ),
       body: Consumer<PatientInfoProvider>(
         builder: (context, value, child) {
           print(value.patients);
@@ -33,21 +47,46 @@ class _HomePageState extends State<HomePage> with AfterLayoutMixin<HomePage> {
             );
           }
           return Container(
-            padding: const EdgeInsets.all(50),
             alignment: Alignment.center,
-            child: ListView.builder(
-              itemCount: patientInfoList!.length,
-              itemBuilder: (context, index) {
-                return Container(
-                  margin: const EdgeInsets.symmetric(horizontal: 40),
-                  alignment: Alignment.center,
-                  height: 70,
-                  decoration: BoxDecoration(
-                      color: index % 2 == 0
-                          ? Constants.lineColor1
-                          : Constants.lineColor2),
-                  child: index == 0
-                      ? Column(
+            child: Row(
+              children: [
+                Container(
+                  padding: EdgeInsets.all(50),
+                  color: Color.fromRGBO(182, 204, 254, 1),
+                  width: 300,
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                     const  Text("Doctor(or Manager)", style: TextStyle(fontSize: 20),),
+                      const SizedBox(height: 15,),
+                      Divider(height: 4,color: Colors.black,),
+                      const SizedBox(height: 15,),
+                      Text("Content", style: TextStyle(fontSize: 17, color: Colors.black),),
+                      const SizedBox(height: 15,),
+                      Text("Content", style: TextStyle(fontSize: 17, color: Colors.black),),
+                      const SizedBox(height: 15,),
+                      Text("Content", style: TextStyle(fontSize: 17, color: Colors.black),),
+                    ],
+                  ),
+                ),
+                Container(
+                  color: Color.fromRGBO(215,227, 252, 1),
+                  width: MediaQuery.of(context).size.width-300,
+                  height: MediaQuery.of(context).size.height-AppBar().preferredSize.height,
+                  child: ListView.builder(
+                    scrollDirection: Axis.vertical,
+                    itemCount: patientInfoList!.length,
+                    itemBuilder: (context, index) {
+                      return Container(
+                        margin: const EdgeInsets.symmetric(horizontal: 40),
+                        alignment: Alignment.center,
+                        height: 70,
+                        decoration: BoxDecoration(
+                            color: index % 2 == 0
+                                ? Constants.lineColor1
+                                : Constants.lineColor2),
+                        child: index == 0
+                            ? Column(
                           children: [
                             Container(
                               width: MediaQuery.of(context).size.width,
@@ -69,7 +108,7 @@ class _HomePageState extends State<HomePage> with AfterLayoutMixin<HomePage> {
                                     width: 100,
                                     child: Text("Age"),
                                   ),
-                                   SizedBox(
+                                  SizedBox(
                                     width: 100,
                                   )
                                 ],
@@ -92,9 +131,9 @@ class _HomePageState extends State<HomePage> with AfterLayoutMixin<HomePage> {
                                 SizedBox(
                                   width: 100,
                                   child: Text(patientInfoList![index].age
-                                          .truncate()
-                                          .toString() ??
-                                      ""),
+                                      .truncate()
+                                      .toString()
+                                  ),
                                 ),
                                 detailedInfoButton(
                                     patientInfoList![index] as Result)
@@ -102,12 +141,12 @@ class _HomePageState extends State<HomePage> with AfterLayoutMixin<HomePage> {
                             ),
                           ],
                         )
-                      : Row(
+                            : Row(
                           children: [
                             SizedBox(
                               width: 40,
                               child:
-                                  Text(patientInfoList![index].mrn ?? ""),
+                              Text(patientInfoList![index].mrn ),
                             ),
                             SizedBox(
                               width: 100,
@@ -118,17 +157,19 @@ class _HomePageState extends State<HomePage> with AfterLayoutMixin<HomePage> {
                             SizedBox(
                               width: 100,
                               child: Text(patientInfoList![index].age
-                                      .truncate()
-                                      .toString() ??
-                                  ""),
+                                  .truncate()
+                                  .toString()),
                             ),
                             detailedInfoButton(
                                 patientInfoList![index] as Result)
                           ],
                         ),
-                );
-              },
-            ),
+                      );
+                    },
+                  ),
+                ),
+              ],
+            )
           );
         },
       ),
