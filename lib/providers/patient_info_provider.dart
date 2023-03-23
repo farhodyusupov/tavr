@@ -29,14 +29,15 @@ class PatientInfoProvider extends ChangeNotifier {
         notifyListeners();
   }
 
-  Future<Patient?>? getPatient()async{
+  Future<PatientInfo?>? getPatient()async{
     print("patient is getting fetch");
     Response response = await networkProvider.networkRequest(method: "post", path: "/inform" );
     print("request code:: ${response.statusCode}");
-    if(response.statusCode == 200){
+    if(response.statusCode == 201){
       print("patient fetch is done");
-      Patient patient = Patient.fromJson(response.data);
-      print("patient info::${patient.mrn}");
+      print("patient info:: ${response.data}");
+      PatientInfo patient = PatientInfo.fromJson(response.data);
+      print("patient info::${patient.result?.mrn}");
       return patient;
     }
 

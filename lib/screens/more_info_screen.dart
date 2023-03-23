@@ -192,8 +192,7 @@ class _MoreInfoScreenState extends State<MoreInfoScreen>
   @override
   void afterFirstLayout(BuildContext context) {
     patientInfoProvider!.getPatient();
-    // TODO: implement afterFirstLayout
-    throw UnimplementedError();
+
   }
 
   void PPIresult() {
