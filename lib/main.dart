@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:tavr/providers/patient_info_provider.dart';
+import 'package:tavr/screens/more_info_screen.dart';
 import 'package:tavr/widget/platform_scaffold.dart';
 import 'screens/home_screen.dart';
 
@@ -29,6 +30,9 @@ class MyApp extends StatelessWidget {
               .copyWith(background: Colors.white),
           scaffoldBackgroundColor: Colors.white),
       home: HomePage(),
+      routes: {
+        "/":(context)=>HomePage(),
+      },
     );
   }
 }
