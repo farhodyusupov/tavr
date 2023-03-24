@@ -13,13 +13,13 @@ class PatientInfo {
      this.isSuccess,
      this.statusCode,
      this.message,
-     this.result,
+     required this.result,
   });
 
   bool? isSuccess;
   int? statusCode;
   String? message;
-  Patient? result;
+  Patient result;
 
   factory PatientInfo.fromJson(Map<String, dynamic> json) => PatientInfo(
     isSuccess: json["isSuccess"],
@@ -32,7 +32,7 @@ class PatientInfo {
     "isSuccess": isSuccess,
     "statusCode": statusCode,
     "message": message,
-    "result": result?.toJson(),
+    "result": result.toJson(),
   };
 }
 
