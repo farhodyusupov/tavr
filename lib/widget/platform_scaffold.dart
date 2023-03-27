@@ -19,7 +19,6 @@ class _PlatformScaffoldState extends State<PlatformScaffold> {
   bool isMobile = false;
   bool isWindows = false;
   bool isWeb = false;
-
   @override
   void initState() {
     if (Platform.isAndroid || Platform.isIOS) {
@@ -38,7 +37,54 @@ class _PlatformScaffoldState extends State<PlatformScaffold> {
 
   @override
   Widget build(BuildContext context) {
+    var shortestSide = MediaQuery.of(context).size.shortestSide;
+    final bool isTablet = shortestSide>600;
+    print("isTablet: $isTablet");
     return Scaffold(
+        drawer: !isTablet?Drawer(
+          child: Container(
+            padding: EdgeInsets.all(50),
+            color: Color.fromRGBO(182, 204, 254, 1),
+            width: 300,
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: const [
+                Text(
+                  "Doctor(or Manager)",
+                  style: TextStyle(fontSize: 20),
+                ),
+                SizedBox(
+                  height: 15,
+                ),
+                Divider(
+                  height: 4,
+                  color: Colors.black,
+                ),
+                SizedBox(
+                  height: 15,
+                ),
+                Text(
+                  "Content",
+                  style: TextStyle(fontSize: 17, color: Colors.black),
+                ),
+                SizedBox(
+                  height: 15,
+                ),
+                Text(
+                  "Content",
+                  style: TextStyle(fontSize: 17, color: Colors.black),
+                ),
+                SizedBox(
+                  height: 15,
+                ),
+                Text(
+                  "Content",
+                  style: TextStyle(fontSize: 17, color: Colors.black),
+                ),
+              ],
+            ),
+          ),
+        ):SizedBox(),
         appBar: AppBar(
           backgroundColor: Color.fromRGBO(204, 219, 253, 1),
           title: Row(
@@ -61,6 +107,7 @@ class _PlatformScaffoldState extends State<PlatformScaffold> {
         body: Container(
           child: Row(
             children: [
+              !isTablet?SizedBox():
               Container(
                 padding: EdgeInsets.all(50),
                 color: Color.fromRGBO(182, 204, 254, 1),
@@ -103,7 +150,10 @@ class _PlatformScaffoldState extends State<PlatformScaffold> {
                   ],
                 ),
               ),
-              widget.body
+             !isTablet?widget.body:Container(
+               width: MediaQuery.of(context).size.width-300,
+               child:              widget.body,
+             ),
             ],
           ),
         ));

@@ -31,9 +31,10 @@ class _HomePageState extends State<HomePage> with AfterLayoutMixin<HomePage> {
       body: Consumer<PatientInfoProvider>(
         builder: (context, value, child) {
           patientInfoList = value.patients;
+          print("screen size:${MediaQuery.of(context).size.width}");
 
           return Container(
-            width: MediaQuery.of(context).size.width - 300,
+            // width: MediaQuery.of(context).size.width - 300,
             child: Column(
               children: [
                 Container(
@@ -45,7 +46,7 @@ class _HomePageState extends State<HomePage> with AfterLayoutMixin<HomePage> {
                       Row(
                         children: [
                           Container(
-                            width: 150,
+                            width: 120,
                             height: 30,
                             child: TextField(
                               decoration: InputDecoration(
@@ -85,7 +86,7 @@ class _HomePageState extends State<HomePage> with AfterLayoutMixin<HomePage> {
                               child: Text("Search"),
                             ),
                           ),
-                          const SizedBox(width: 30,)
+                          const SizedBox(width: 10,)
                         ],
                       ),
 
@@ -106,16 +107,16 @@ class _HomePageState extends State<HomePage> with AfterLayoutMixin<HomePage> {
                               children: [
                                 Container(
                                   alignment: Alignment.center,
-                                  width: 100,
+                                  width: 70,
                                   child: Text("MRN", style: TextStyle(fontWeight: FontWeight.bold),),
                                 ),
                                 Container(
                                   alignment: Alignment.center,
-                                  width: 100,
+                                  width: 70,
                                   child: Text("Age", style: TextStyle(fontWeight: FontWeight.bold),),
                                 ),
                                 Container(
-                                  width: 100,
+                                  width: 70,
                                   alignment: Alignment.center,
                                   child: Text("Gender", style: TextStyle(fontWeight: FontWeight.bold),),
                                 ),
@@ -128,6 +129,7 @@ class _HomePageState extends State<HomePage> with AfterLayoutMixin<HomePage> {
                                 children: searchlist.isEmpty?patientInfoList.map((patient) {
                                   int index = patientInfoList.indexOf(patient);
                                   return Container(
+                                    width: MediaQuery.of(context).size.width,
                                     color: index%2==0?Constants.lineColor1:Constants.lineColor2,
                                     padding: EdgeInsets.only(right: 30),
                                     height: 60,
@@ -135,18 +137,18 @@ class _HomePageState extends State<HomePage> with AfterLayoutMixin<HomePage> {
                                       children: [
                                         Container(
                                           alignment: Alignment.center,
-                                          width: 100,
+                                          width: 70,
                                           child: Text(patient.mrn),
                                         ),
                                         Container(
                                           alignment: Alignment.center,
-                                          width: 100,
+                                          width: 70,
                                           child: Text(patient.age.truncate().toString()),
                                         ),
                                         Container(
                                           alignment: Alignment.center,
-                                          width: 100,
-                                          child: Text(patient.sex==0?"Male":"Female"),
+                                          width: 70,
+                                          child: Text(patient.sex==1?"Male":"Female"),
                                         ),
                                         Expanded(child: Container(
                                           alignment: Alignment.centerRight,
@@ -165,17 +167,17 @@ class _HomePageState extends State<HomePage> with AfterLayoutMixin<HomePage> {
                                         children: [
                                           Container(
                                             alignment: Alignment.center,
-                                            width: 100,
+                                            width: 70,
                                             child: Text(searchPatient.mrn),
                                           ),
                                           Container(
                                             alignment: Alignment.center,
-                                            width: 100,
+                                            width: 70,
                                             child: Text(searchPatient.age.truncate().toString()),
                                           ),
                                           Container(
                                             alignment: Alignment.center,
-                                            width: 100,
+                                            width: 70,
                                             child: Text(searchPatient.sex==0?"Male":"Female"),
                                           ),
                                           Expanded(child: Container(

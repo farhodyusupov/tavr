@@ -10,100 +10,102 @@ String patientInfoToJson(PatientInfo data) => json.encode(data.toJson());
 
 class PatientInfo {
   PatientInfo({
-     this.isSuccess,
-     this.statusCode,
-     this.message,
-     required this.result,
+    this.isSuccess,
+    this.stateCode,
+    this.message,
+    required this.result,
   });
 
   bool? isSuccess;
-  int? statusCode;
+  int? stateCode;
   String? message;
-  Patient result;
+  List<Info> result;
 
   factory PatientInfo.fromJson(Map<String, dynamic> json) => PatientInfo(
     isSuccess: json["isSuccess"],
-    statusCode: json["statusCode"],
+    stateCode: json["stateCode"],
     message: json["message"],
-    result: Patient.fromJson(json["result"]),
+    result: json["result"] == null ? [] : List<Info>.from(json["result"]!.map((x) => Info.fromJson(x))),
   );
 
   Map<String, dynamic> toJson() => {
     "isSuccess": isSuccess,
-    "statusCode": statusCode,
+    "stateCode": stateCode,
     "message": message,
-    "result": result.toJson(),
+    "result": result == null ? [] : List<dynamic>.from(result!.map((x) => x.toJson())),
   };
 }
 
-class Patient {
-  Patient({
-     this.mrn,
-     this.pacemakerImplatation,
-     this.age,
-     this.sex,
-     this.bsa,
-     this.bmi,
-     this.htn,
-     this.cad,
-     this.dm,
-     this.copd,
-     this.af,
-     this.pvd,
-     this.cva,
-     this.hemodialysis,
-     this.previousHeartSergery,
-     this.sympomaticAs,
-     this.acEiArb,
-     this.betaBlocker,
-     this.aldosteroneantagonist,
-     this.ccb,
-     this.antiPlateletotherthanAsa,
-     this.asa,
-     this.antiPlateletTherapy,
-     this.diuretics,
-     this.lvef,
-     this.systolicBp,
-     this.diastolicBp,
-     this.lvot,
-     this.valveCode,
-     this.valveSize,
-     this.baselineRhythm,
-     this.pr,
-     this.qrs,
-     this.qrSmorethan120,
-     this.firstdegreeAVblock,
-     this.baselineConductionDisorder,
-     this.baselineRbbb,
-     this.deltaPr,
-     this.deltaQrs,
-     this.newOnsetRbbb,
+class Info {
+  Info({
+    this.mrn,
+    this.pacemakerImplantation,
+    this.ppMdays,
+    this.age,
+    this.sex,
+    this.bsa,
+    this.bmi,
+    this.htn,
+    this.cad,
+    this.dm,
+    this.copd,
+    this.af,
+    this.pvd,
+    this.cva,
+    this.hemodialysis,
+    this.previousHeartSurgeryIntervention,
+    this.symptomaticAs,
+    this.acEiArb,
+    this.betaBlocker,
+    this.aldosteroneantagonist,
+    this.ccb,
+    this.antiPlateletotherthanAsa,
+    this.asa,
+    this.antiPlateletTherapy,
+    this.diuretics,
+    this.lvef,
+    this.systolicBp,
+    this.diastolicBp,
+    this.lvot,
+    this.valveCode,
+    this.valveSize,
+    this.baselineRhythm,
+    this.pr,
+    this.qrs,
+    this.qrSmorethan120,
+    this.firstdegreeAVblock,
+    this.baselineConductionDisorder,
+    this.baselineRbbb,
+    this.deltaPr,
+    this.deltaQrs,
+    this.newOnsetLbbb,
   });
 
   String? mrn;
-  bool? pacemakerImplatation;
+  int? pacemakerImplantation;
+  String? ppMdays;
   double? age;
   int? sex;
   double? bsa;
   double? bmi;
-  bool? htn;
-  bool? cad;
-  bool? dm;
-  bool? copd;
-  bool? af;
-  bool? pvd;
-  bool? cva;
-  bool? hemodialysis;
-  bool? previousHeartSergery;
-  bool? sympomaticAs;
-  bool? acEiArb;
-  bool? betaBlocker;
-  bool? aldosteroneantagonist;
-  bool? ccb;
-  bool? antiPlateletotherthanAsa;
-  bool? asa;
-  bool? antiPlateletTherapy;
-  bool? diuretics;
+  int? htn;
+  int? cad;
+  int? dm;
+  int? copd;
+  int? af;
+  int? pvd;
+  int? cva;
+  int? hemodialysis;
+  int? previousHeartSurgeryIntervention;
+  int? symptomaticAs;
+  int? acEiArb;
+  int? betaBlocker;
+  int? aldosteroneantagonist;
+  int? ccb;
+  int? antiPlateletotherthanAsa;
+  int? asa;
+  int? antiPlateletTherapy;
+  int? diuretics;
   int? lvef;
   int? systolicBp;
   int? diastolicBp;
@@ -113,17 +115,18 @@ class Patient {
   int? baselineRhythm;
   int? pr;
   int? qrs;
-  bool? qrSmorethan120;
-  bool? firstdegreeAVblock;
-  bool? baselineConductionDisorder;
-  bool? baselineRbbb;
+  int? qrSmorethan120;
+  int? firstdegreeAVblock;
+  int? baselineConductionDisorder;
+  int? baselineRbbb;
   int? deltaPr;
   int? deltaQrs;
-  bool? newOnsetRbbb;
+  int? newOnsetLbbb;
 
-  factory Patient.fromJson(Map<String, dynamic> json) => Patient(
+  factory Info.fromJson(Map<String, dynamic> json) => Info(
     mrn: json["MRN"],
-    pacemakerImplatation: json["PacemakerImplatation"],
+    pacemakerImplantation: json["PacemakerImplantation"],
+    ppMdays: json["PPMdays"],
     age: json["Age"]?.toDouble(),
     sex: json["Sex"],
     bsa: json["BSA"]?.toDouble(),
@@ -135,9 +138,9 @@ class Patient {
     af: json["AF"],
     pvd: json["PVD"],
     cva: json["CVA"],
-    hemodialysis: json["hemodialysis"],
-    previousHeartSergery: json["PreviousHeartSergery"],
-    sympomaticAs: json["SympomaticAs"],
+    hemodialysis: json["Hemodialysis"],
+    previousHeartSurgeryIntervention: json["PreviousHeartSurgery_Intervention"],
+    symptomaticAs: json["SymptomaticAS"],
     acEiArb: json["ACEi_ARB"],
     betaBlocker: json["Beta_Blocker"],
     aldosteroneantagonist: json["Aldosteroneantagonist"],
@@ -161,12 +164,13 @@ class Patient {
     baselineRbbb: json["BaselineRBBB"],
     deltaPr: json["DeltaPR"],
     deltaQrs: json["DeltaQRS"],
-    newOnsetRbbb: json["New_Onset_RBBB"],
+    newOnsetLbbb: json["New_Onset_LBBB"],
   );
 
   Map<String, dynamic> toJson() => {
     "MRN": mrn,
-    "PacemakerImplatation": pacemakerImplatation,
+    "PacemakerImplantation": pacemakerImplantation,
+    "PPMdays": ppMdays,
     "Age": age,
     "Sex": sex,
     "BSA": bsa,
@@ -178,9 +182,9 @@ class Patient {
     "AF": af,
     "PVD": pvd,
     "CVA": cva,
-    "hemodialysis": hemodialysis,
-    "PreviousHeartSergery": previousHeartSergery,
-    "SympomaticAs": sympomaticAs,
+    "Hemodialysis": hemodialysis,
+    "PreviousHeartSurgery_Intervention": previousHeartSurgeryIntervention,
+    "SymptomaticAS": symptomaticAs,
     "ACEi_ARB": acEiArb,
     "Beta_Blocker": betaBlocker,
     "Aldosteroneantagonist": aldosteroneantagonist,
@@ -204,6 +208,6 @@ class Patient {
     "BaselineRBBB": baselineRbbb,
     "DeltaPR": deltaPr,
     "DeltaQRS": deltaQrs,
-    "New_Onset_RBBB": newOnsetRbbb,
+    "New_Onset_LBBB": newOnsetLbbb,
   };
 }

@@ -13,9 +13,9 @@ class PatientInfoProvider extends ChangeNotifier {
 
   List<Result> get patients => _patients;
 
-  Patient _patient = Patient();
+  List<Info> _patient = [];
 
-  Patient get patient => _patient;
+  List<Info> get patient => _patient;
 
   Ppi _ppi =Ppi();
 
@@ -27,6 +27,9 @@ class PatientInfoProvider extends ChangeNotifier {
     if (response.statusCode == 200) {
       PatientList patientInfo = PatientList.fromJson(response.data);
       setPatientInfo(patientInfo.result);
+      patientInfo.result.forEach((element) {
+        print(element.sex);
+      });
       return patientInfo.result;
     }
     return null;
@@ -39,23 +42,31 @@ class PatientInfoProvider extends ChangeNotifier {
 
   Future<PatientInfo?>? getPatient() async {
     Response response =
-        await networkProvider.networkRequest(method: "post", path: "/inform");
+        await networkProvider.networkRequest(method: "post", path: "/inform",data: {"MRN":"02006901"});
+    print("statusCode:: ${response.statusCode}");
     if (response.statusCode == 201) {
       PatientInfo patient = PatientInfo.fromJson(response.data);
-      setPatient(patient.result);
+      if(!patient.result.isEmpty){
+        setPatient(patient.result);
+      }
     }
   }
 
-  void setPatient(Patient patientInfo) {
+  void setPatient(List<Info> patientInfo) {
     _patient = patientInfo;
     notifyListeners();
   }
 
   Future<Ppi?>? getPPIResult() async {
+    print("ppi");
+
     Response response =
-        await networkProvider.networkRequest(method: "post", path: "/ppi");
+        await networkProvider.networkRequest(method: "post", path: "/PPI", data: {"MRN":"02006901"});
+    print("ppi");
+    print(response.statusCode);
     if (response.statusCode == 201) {
       Ppi ppi = Ppi.fromJson(response.data);
+      print("ppi result:: ${ppi.result}");
       setPPI(ppi);
     }
   }

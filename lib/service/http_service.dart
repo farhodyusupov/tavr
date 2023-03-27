@@ -3,12 +3,12 @@ import 'package:dio/dio.dart';
 import '../models/patient_List.dart';
 
 class HttpService {
-  static const String baseUrl = "http://210.102.181.156:40007/tavr/patient";
+  static const String baseUrl = "http://210.102.181.208:40010/tavr/patient";
   final dio = Dio();
   var response;
 
   Future<Response> networkRequest(
-      {required String method, required String path, String? data}) {
+      {required String method, required String path, Map<String, String>? data}) {
     print("request is coming::");
 
     switch (method) {
@@ -20,7 +20,7 @@ class HttpService {
         break;
       case "post":
         print("method:: $method");
-        response = dio.post("$baseUrl$path");
+        response = dio.post("$baseUrl$path",data: data);
         break;
       default:
         break;

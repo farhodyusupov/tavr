@@ -25,7 +25,7 @@ class MoreInfoScreen extends StatefulWidget {
 class _MoreInfoScreenState extends State<MoreInfoScreen>
     with AfterLayoutMixin<MoreInfoScreen> {
   PatientInfoProvider? patientInfoProvider;
-  Patient? patient;
+  List<Info>? patient;
   Ppi? ppi;
 
   bool isMobile = false;
@@ -50,13 +50,13 @@ class _MoreInfoScreenState extends State<MoreInfoScreen>
     patientInfoProvider = Provider.of<PatientInfoProvider>(context);
 
     return Consumer<PatientInfoProvider>(builder: (context, value, child) {
-      patient = value.patient as Patient?;
+      patient = value.patient.cast<Info>() ;
       if (patient == null) {
         return CircularProgressIndicator();
       }
       return PlatformScaffold(
         body: Container(
-          width: MediaQuery.of(context).size.width - 300,
+
           padding: EdgeInsets.all(40),
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
@@ -69,7 +69,7 @@ class _MoreInfoScreenState extends State<MoreInfoScreen>
               Expanded(
                 child: Container(
                     padding: EdgeInsets.symmetric(vertical: 30),
-                    width: 400,
+                    // width: 400,
                     child: Column(
                       children: [
                         const SizedBox(
@@ -81,6 +81,7 @@ class _MoreInfoScreenState extends State<MoreInfoScreen>
                               mainAxisAlignment: MainAxisAlignment.spaceBetween,
                               children: [
                                 Column(
+                                  crossAxisAlignment: CrossAxisAlignment.start,
                                   children: const [
                                     Text(
                                       "MRN:",
@@ -310,225 +311,225 @@ class _MoreInfoScreenState extends State<MoreInfoScreen>
                                   crossAxisAlignment: CrossAxisAlignment.start,
                                   children: [
                                     Text(
-                                      patient!.mrn.toString(),
+                                      patient![0].mrn.toString(),
                                       style: TextStyle(
                                           fontSize: 18,
                                           fontWeight: FontWeight.w400),
                                     ),
                                     Text(
-                                      patient!.age!.truncate().toString(),
+                                      patient![0].age!.truncate().toString(),
                                       style: TextStyle(
                                           fontSize: 18,
                                           fontWeight: FontWeight.w400),
                                     ),
                                     Text(
-                                      patient!.pacemakerImplatation.toString(),
+                                      patient![0].pacemakerImplantation.toString(),
                                       style: TextStyle(
                                           fontSize: 18,
                                           fontWeight: FontWeight.w400),
                                     ),
                                     Text(
-                                      patient!.bsa.toString(),
+                                      patient![0].bsa.toString(),
                                       style: TextStyle(
                                           fontSize: 18,
                                           fontWeight: FontWeight.w400),
                                     ),
                                     Text(
-                                      patient!.bmi.toString(),
+                                      patient![0].bmi.toString(),
                                       style: TextStyle(
                                           fontSize: 18,
                                           fontWeight: FontWeight.w400),
                                     ),
                                     Text(
-                                      patient!.htn.toString(),
+                                      patient![0].htn.toString(),
                                       style: TextStyle(
                                           fontSize: 18,
                                           fontWeight: FontWeight.w400),
                                     ),
                                     Text(
-                                      patient!.cad.toString(),
+                                      patient![0].cad.toString(),
                                       style: TextStyle(
                                           fontSize: 18,
                                           fontWeight: FontWeight.w400),
                                     ),
                                     Text(
-                                      patient!.dm.toString(),
+                                      patient![0].dm.toString(),
                                       style: TextStyle(
                                           fontSize: 18,
                                           fontWeight: FontWeight.w400),
                                     ),
                                     Text(
-                                      patient!.copd.toString(),
+                                      patient![0].copd.toString(),
                                       style: TextStyle(
                                           fontSize: 18,
                                           fontWeight: FontWeight.w400),
                                     ),
                                     Text(
-                                      patient!.af.toString(),
+                                      patient![0].af.toString(),
                                       style: TextStyle(
                                           fontSize: 18,
                                           fontWeight: FontWeight.w400),
                                     ),
                                     Text(
-                                      patient!.pvd.toString(),
+                                      patient![0].pvd.toString(),
                                       style: TextStyle(
                                           fontSize: 18,
                                           fontWeight: FontWeight.w400),
                                     ),
                                     Text(
-                                      patient!.cva.toString(),
+                                      patient![0].cva.toString(),
                                       style: TextStyle(
                                           fontSize: 18,
                                           fontWeight: FontWeight.w400),
                                     ),
                                     Text(
-                                      patient!.hemodialysis.toString(),
+                                      patient![0].hemodialysis.toString(),
                                       style: TextStyle(
                                           fontSize: 18,
                                           fontWeight: FontWeight.w400),
                                     ),
                                     Text(
-                                      patient!.previousHeartSergery.toString(),
+                                      patient![0].previousHeartSurgeryIntervention.toString(),
                                       style: TextStyle(
                                           fontSize: 18,
                                           fontWeight: FontWeight.w400),
                                     ),
                                     Text(
-                                      patient!.sympomaticAs.toString(),
+                                      patient![0].symptomaticAs.toString(),
                                       style: TextStyle(
                                           fontSize: 18,
                                           fontWeight: FontWeight.w400),
                                     ),
                                     Text(
-                                      patient!.acEiArb.toString(),
+                                      patient![0].acEiArb.toString(),
                                       style: TextStyle(
                                           fontSize: 18,
                                           fontWeight: FontWeight.w400),
                                     ),
                                     Text(
-                                      patient!.betaBlocker.toString(),
+                                      patient![0].betaBlocker.toString(),
                                       style: TextStyle(
                                           fontSize: 18,
                                           fontWeight: FontWeight.w400),
                                     ),
                                     Text(
-                                      patient!.aldosteroneantagonist.toString(),
+                                      patient![0].aldosteroneantagonist.toString(),
                                       style: TextStyle(
                                           fontSize: 18,
                                           fontWeight: FontWeight.w400),
                                     ),
                                     Text(
-                                      patient!.ccb.toString(),
+                                      patient![0].ccb.toString(),
                                       style: TextStyle(
                                           fontSize: 18,
                                           fontWeight: FontWeight.w400),
                                     ),
                                     Text(
-                                      patient!.antiPlateletotherthanAsa
+                                      patient![0].antiPlateletotherthanAsa
                                           .toString(),
                                       style: TextStyle(
                                           fontSize: 18,
                                           fontWeight: FontWeight.w400),
                                     ),
                                     Text(
-                                      patient!.asa.toString(),
+                                      patient![0].asa.toString(),
                                       style: TextStyle(
                                           fontSize: 18,
                                           fontWeight: FontWeight.w400),
                                     ),
                                     Text(
-                                      patient!.antiPlateletTherapy.toString(),
+                                      patient![0].antiPlateletTherapy.toString(),
                                       style: TextStyle(
                                           fontSize: 18,
                                           fontWeight: FontWeight.w400),
                                     ),
                                     Text(
-                                      patient!.diuretics.toString(),
+                                      patient![0].diuretics.toString(),
                                       style: TextStyle(
                                           fontSize: 18,
                                           fontWeight: FontWeight.w400),
                                     ),
                                     Text(
-                                      patient!.lvef.toString(),
+                                      patient![0].lvef.toString(),
                                       style: TextStyle(
                                           fontSize: 18,
                                           fontWeight: FontWeight.w400),
                                     ),
                                     Text(
-                                      patient!.systolicBp.toString(),
+                                      patient![0].systolicBp.toString(),
                                       style: TextStyle(
                                           fontSize: 18,
                                           fontWeight: FontWeight.w400),
                                     ),
                                     Text(
-                                      patient!.diastolicBp.toString(),
+                                      patient![0].diastolicBp.toString(),
                                       style: TextStyle(
                                           fontSize: 18,
                                           fontWeight: FontWeight.w400),
                                     ),
                                     Text(
-                                      patient!.lvot.toString(),
+                                      patient![0].lvot.toString(),
                                       style: TextStyle(
                                           fontSize: 18,
                                           fontWeight: FontWeight.w400),
                                     ),
                                     Text(
-                                      patient!.valveSize.toString(),
+                                      patient![0].valveSize.toString(),
                                       style: TextStyle(
                                           fontSize: 18,
                                           fontWeight: FontWeight.w400),
                                     ),
                                     Text(
-                                      patient!.baselineRhythm.toString(),
+                                      patient![0].baselineRhythm.toString(),
                                       style: TextStyle(
                                           fontSize: 18,
                                           fontWeight: FontWeight.w400),
                                     ),
                                     Text(
-                                      patient!.pr.toString(),
+                                      patient![0].pr.toString(),
                                       style: TextStyle(
                                           fontSize: 18,
                                           fontWeight: FontWeight.w400),
                                     ),
                                     Text(
-                                      patient!.qrs.toString(),
+                                      patient![0].qrs.toString(),
                                       style: TextStyle(
                                           fontSize: 18,
                                           fontWeight: FontWeight.w400),
                                     ),
                                     Text(
-                                      patient!.qrSmorethan120.toString(),
+                                      patient![0].qrSmorethan120.toString(),
                                       style: TextStyle(
                                           fontSize: 18,
                                           fontWeight: FontWeight.w400),
                                     ),
                                     Text(
-                                      patient!.firstdegreeAVblock.toString(),
+                                      patient![0].firstdegreeAVblock.toString(),
                                       style: TextStyle(
                                           fontSize: 18,
                                           fontWeight: FontWeight.w400),
                                     ),
                                     Text(
-                                      patient!.baselineConductionDisorder
+                                      patient![0].baselineConductionDisorder
                                           .toString(),
                                       style: TextStyle(
                                           fontSize: 18,
                                           fontWeight: FontWeight.w400),
                                     ),
                                     Text(
-                                      patient!.baselineRbbb.toString(),
+                                      patient![0].baselineRbbb.toString(),
                                       style: TextStyle(
                                           fontSize: 18,
                                           fontWeight: FontWeight.w400),
                                     ),
                                     Text(
-                                      patient!.deltaPr.toString(),
+                                      patient![0].deltaPr.toString(),
                                       style: TextStyle(
                                           fontSize: 18,
                                           fontWeight: FontWeight.w400),
                                     ),
                                     Text(
-                                      patient!.newOnsetRbbb.toString(),
+                                      patient![0].newOnsetLbbb.toString(),
                                       style: TextStyle(
                                           fontSize: 18,
                                           fontWeight: FontWeight.w400),
@@ -560,7 +561,7 @@ class _MoreInfoScreenState extends State<MoreInfoScreen>
                     ),
                   ),
                   const SizedBox(
-                    width: 100,
+                    width: 50,
                   ),
                   GestureDetector(
                     onTap: () {
@@ -590,20 +591,43 @@ class _MoreInfoScreenState extends State<MoreInfoScreen>
     patientInfoProvider!.getPatient();
     patientInfoProvider!.getPPIResult();
   }
+
   void PPIresult() {
     showDialog(
       context: (context),
       builder: (BuildContext context) {
         return AlertDialog(
-          content: Consumer<PatientInfoProvider>(
-            builder: (context, value, child) {
-              ppi =  value.ppi;
-              return Container(
-                child: Text(ppi!.result.toString()),
-              );
-            },
+          elevation: 0,
+          title: const Text("TAVR "),
+          content: Container(
+            height: 200,
+            child: Consumer<PatientInfoProvider>(
+              builder: (context, value, child) {
+                patientInfoProvider!.getPPIResult();
+                ppi = value.ppi as Ppi?;
+                return Container(
+                  child: RichText(text: TextSpan(
+                    children: [
+                      TextSpan(text:"PPI result for user: ", style: TextStyle( color: Colors.black, fontSize: 20)),
+                      TextSpan(text: ppi!.result.toString(), style: TextStyle(fontWeight: FontWeight.w900, color: Colors.black, fontSize: 20))
+                    ],
+                  )),
+                );
+              },
+            ),
           ),
+          actions: <Widget>[
+            TextButton(
+              onPressed: () => Navigator.pop(context, 'Cancel'),
+              child: const Text('Cancel'),
+            ),
+            TextButton(
+              onPressed: () => Navigator.pop(context, 'OK'),
+              child: const Text('OK'),
+            ),
+          ],
         );
+
       },
     );
   }

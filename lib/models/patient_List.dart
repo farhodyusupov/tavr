@@ -24,7 +24,7 @@ class PatientList {
 
   factory PatientList.fromJson(Map<String, dynamic> json) => PatientList(
     isSuccess: json["isSuccess"],
-    statusCode: json["statusCode"],
+    statusCode: json["stateCode"],
     message: json["message"],
     result: List<Result>.from(json["result"].map((x) => Result.fromJson(x))),
   );

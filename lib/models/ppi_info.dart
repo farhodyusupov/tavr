@@ -15,7 +15,7 @@ class Ppi {
   bool? isSuccess;
   int? statusCode;
   String? message;
-  bool? result;
+  String? result;
 
   factory Ppi.fromRawJson(String str) => Ppi.fromJson(json.decode(str));
 
